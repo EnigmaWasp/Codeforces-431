@@ -1,0 +1,43 @@
+
+import java.io.*;
+import java.util.*;
+
+public class B {
+
+    public static void main(String[] args) {
+        	Scanner in = new Scanner(System.in);
+	    	PrintWriter out = new PrintWriter(System.out);
+            int n = in.nextInt();
+            int[] y = new int[n];
+            for (int i = 0 ; i < n ; i++) y[i] = in.nextInt();
+            boolean ok = false;
+            for (int I = 0 ; I < 2 ; I++) {
+                for (int i = I + 1 ; i < n ; i++) {
+                    int A = y[I] - y[i];
+                    int B = i - I;
+                    int C = I * y[i] - i * y[I];
+                    double d = 0;
+                    boolean can = true;
+                    boolean second = false;
+                    for (int j = 0 ; j < n ; j++) {
+                        if (A * j + B * y[j] + C != 0) {
+                            second = true;
+                            if (d == 0) {
+                                d = 1.0 * (-C - A * j) / B - y[j];
+                            } else {
+                                double d2 = 1.0 * (-C - A * j) / B - y[j];
+                                if (d != d2) {
+                                    can = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    can &= second;
+                    ok |= can;
+                }
+            }
+            if (ok) out.println("yes"); else out.println("no");
+            out.close();
+    }
+}
